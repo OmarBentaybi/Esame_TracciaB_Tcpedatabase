@@ -6,7 +6,7 @@ import java.util.List;
 import static java.lang.System.exit;
 
 public class DatabaseHandler {
-    static final String DB_URL = "jdbc:mysql://localhost:3306/test";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/wines";
     static final String USER = "root";
     static final String PASS = "password";
     public void init(List<Product> list){
@@ -28,7 +28,7 @@ public class DatabaseHandler {
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", USER, PASS);
             Statement stmt = conn.createStatement();
         ) {
-            String sql = "CREATE DATABASE IF NOT EXISTS test";
+            String sql = "CREATE DATABASE IF NOT EXISTS wines";
             stmt.executeUpdate(sql);
             System.out.println("Database created successfully...");
         } catch (SQLException e) {
@@ -41,7 +41,7 @@ public class DatabaseHandler {
             //DEPRECATED Class.forName("com.mysql.jdbc.Driver");
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/test",
+                    "jdbc:mysql://localhost:3306/wines",
                     "root",
                     "password");
         } catch (Exception e) {
@@ -54,11 +54,11 @@ public class DatabaseHandler {
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = conn.createStatement();
         ) {
-            String sql = "CREATE TABLE IF NOT EXISTS testtable " +
+            String sql = "CREATE TABLE IF NOT EXISTS winestable " +
                     "(id INTEGER not NULL, " +
                     " name VARCHAR(255), " +
                     " price double, " +
-                    " quantity INTEGER, " +
+                    " type VARCHAR(255), " +
                     " PRIMARY KEY ( id ))";
 
             stmt.executeUpdate(sql);
@@ -71,7 +71,7 @@ public class DatabaseHandler {
 
 
     public void insert( List<Product> list) {
-        String SQL = "INSERT INTO testtable(id,name,price,quantity) "
+        String SQL = "INSERT INTO winestable(id,name,price,type) "
                 + "VALUES(?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS); PreparedStatement statement = conn.prepareStatement(SQL);) {
             int count = 0;
@@ -98,7 +98,7 @@ public class DatabaseHandler {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from testtable");
+            ResultSet rs = stmt.executeQuery("select * from winestable");
             while (rs.next())
                 System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3)+ "  " + rs.getString(4));
             conn.close();
@@ -116,7 +116,7 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         try {
-            int result = statement.executeUpdate("TRUNCATE testtable" );
+            int result = statement.executeUpdate("TRUNCATE winestable" );
         } catch (SQLException e) {
             e.printStackTrace();
         }

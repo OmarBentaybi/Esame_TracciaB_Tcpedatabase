@@ -65,7 +65,13 @@ public class ClientHandler {
                 break;
             case "white":
                 intro = "The white wines: ";
-
+                ArrayList<Product> white = new ArrayList<>();
+                for (int i = 0; i < products.size(); i++) {
+                    if(products.get(i).type=="white"){
+                        white.add(products.get(i));
+                    }
+                }
+                result=gson.toJson(white);
                 break;
             case "cheapest":
                 intro = "The cheapest product: ";
@@ -87,7 +93,7 @@ public class ClientHandler {
                 result = gson.toJson(products);
                 break;
             default:
-                result="Insert: 'cheapest' -> cheapest product | 'all' -> list of all products | 'all_sorted' -> list of all products sorted";
+                result="Insert: 'cheapest' -> cheapest product | 'all' -> list of all products | 'all_by_price' -> list of all products sorted";
         }
         return intro+result;
 
