@@ -56,21 +56,13 @@ public class ClientHandler {
             case "red":
                 //intro = "The red wines: ";
                 ArrayList<Product> red = new ArrayList<>();
-                for (int i = 0; i < products.size(); i++) {
-                    if(products.get(i).type=="red"){
-                        red.add(products.get(i));
-                    }
-                }
+                red(red);
                 result=gson.toJson(red);
                 break;
             case "white":
                // intro = "The white wines: ";
                 ArrayList<Product> white = new ArrayList<>();
-                for (int i = 0; i < products.size(); i++) {
-                    if(products.get(i).type=="white"){
-                        white.add(products.get(i));
-                    }
-                }
+                white(white);
                 result=gson.toJson(white);
                 break;
             case "cheapest":
@@ -108,6 +100,24 @@ public class ClientHandler {
 
     public void sort(){
         products.sort((Product o1,Product o2)->{return o1.getName().compareTo(o2.getName());});
+    }
+
+    public ArrayList red(ArrayList red) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).type == "red") {
+                red.add(products.get(i));
+            }
+        }
+        return red;
+    }
+
+    public ArrayList white(ArrayList white) {
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).type == "white") {
+                white.add(products.get(i));
+            }
+        }
+        return white;
     }
 
 
