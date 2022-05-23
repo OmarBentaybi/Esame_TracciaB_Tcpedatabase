@@ -64,22 +64,20 @@ public class ClientHandler {
                 break;
             case "cheapest":
                // intro = "The cheapest product: ";
+                result=cheapestManagement(gson);
 
-                cheapest();
-                Product cheapest = products.get(0);
-                result = gson.toJson(cheapest);
                 break;
             case "sorted_by_name":
                // intro = "List of all the products: ";
-                sort();
-                result = gson.toJson(products);
+
+                result = sorted_by_name(gson);
                 break;
 
             case "sorted_by_price":
               //  intro = "List of all the products sorted from cheapest: ";
 
-                cheapest();
-                result = gson.toJson(products);
+
+                result = sorted_by_price(gson);
                 break;
             default:
                 result="Insert: 'cheapest' -> cheapest product | 'sorted_by_name' -> sort by name | 'white' -> list of all white wines |'red' -> list of all red wines | 'sorted_by_price' -> list of all products sorted";
@@ -102,10 +100,30 @@ public class ClientHandler {
         return result;
     }
 
+    public String cheapestManagement(Gson gson){
+        cheapest();
+        Product cheapest = products.get(0);
+        String result = gson.toJson(cheapest);
+        return result;
+    }
+
+    public String sorted_by_price(Gson gson){
+        cheapest();
+        String result = gson.toJson(products);
+        return result;
+    }
+
     public void cheapest(){
         products.sort((Product o1, Product o2) -> {
             return o1.price.compareTo(o2.price);
         });
+    }
+
+    public String sorted_by_name(Gson gson){
+        sort();
+        String result = gson.toJson(products);
+        return result;
+
     }
 
     public void sort(){
