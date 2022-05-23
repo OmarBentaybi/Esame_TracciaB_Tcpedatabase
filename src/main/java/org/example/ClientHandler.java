@@ -55,15 +55,12 @@ public class ClientHandler {
         switch(input){
             case "red":
                 //intro = "The red wines: ";
-                ArrayList<Product> red = new ArrayList<>();
-                red(red);
-                result=gson.toJson(red);
+                result=redManagement(gson);
                 break;
             case "white":
                // intro = "The white wines: ";
-                ArrayList<Product> white = new ArrayList<>();
-                white(white);
-                result=gson.toJson(white);
+                result=whiteManagement(gson);
+
                 break;
             case "cheapest":
                // intro = "The cheapest product: ";
@@ -85,11 +82,24 @@ public class ClientHandler {
                 result = gson.toJson(products);
                 break;
             default:
-                result="Insert: 'cheapest' -> cheapest product | 'all' -> list of all products | 'all_by_price' -> list of all products sorted";
+                result="Insert: 'cheapest' -> cheapest product | 'sorted_by_name' -> sort by name | 'white' -> list of all white wines |'red' -> list of all red wines | 'sorted_by_price' -> list of all products sorted";
         }
         return result;
 
 
+    }
+
+    public String redManagement(Gson gson){
+        ArrayList<Product> red = new ArrayList<>();
+        red(red);
+        String result=gson.toJson(red);
+        return result;
+    }
+    public String whiteManagement(Gson gson){
+        ArrayList<Product> white = new ArrayList<>();
+        white(white);
+        String result=gson.toJson(white);
+        return result;
     }
 
     public void cheapest(){
